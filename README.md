@@ -1,5 +1,5 @@
 ## About
-This project will be expanded to practice and reinforce my knowledge of Swing and java graphics for the upcoming semester (2)
+This project will be expanded to practice and to reinforce my knowledge of Swing and java graphics for the upcoming semester (2)
 
 ## Sort Visualizer
 
