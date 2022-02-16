@@ -1,0 +1,309 @@
+import javax.swing.JFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
+import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+
+import javax.sound.sampled.*;
+
+
+import javax.swing.*;
+public class SortFrame extends JFrame implements ActionListener, ChangeListener{
+    
+    JPanel drawPanel;
+    JPanel buttonPanelLeft;
+    GridBagConstraints c;
+
+    JTextField delayField;
+
+    JButton nextFrameButton;
+    JButton lastFrameButton;
+    JButton endButton;
+    JButton playButton;
+    JLabel playLabel;
+    JSlider delaySlider;
+
+    Timer timer;
+   
+    
+    int[] array;
+  
+    
+
+    ArrayList<int[]> steps;
+    ArrayList<int[]> highlights;
+
+    public SortFrame(int arraySize, String algo){
+
+       
+        drawPanel = new JPanel();
+
+        setVisible(true);
+        setLayout(new BorderLayout());
+    
+        
+
+        //generate Array with Random Numbers
+        array = new int[arraySize];
+        Random rand = new Random();
+        for(int i=0; i<array.length; i++){
+            int rnum = rand.nextInt(100)+1;
+            
+            boolean flag = false;
+
+            for(int b = 0; b<array.length; b++){
+                if(array[b] == rnum){
+                    flag = true;
+                    
+                }
+            }
+            if(flag == false){
+                array[i] = rnum;
+            }
+
+        }
+
+     /*     GraphicsPanel graphicsPanel = new GraphicsPanel(array);
+         add(graphicsPanel, BorderLayout.CENTER);
+ */
+
+        int start[] = {0, 0};
+        drawPanel = new GraphicsPanel(array, start);
+        add(drawPanel, BorderLayout.CENTER);
+        setVisible(true);
+
+
+       if(algo.equals("bubble")){
+            steps = bubblesort(array);
+            for(int[] a : steps){
+                //System.out.println(Arrays.toString(a));
+            }
+       }
+
+       for(int[] a : highlights){
+           System.out.println(Arrays.toString(a));
+       }
+
+
+        buttonPanelLeft = new JPanel();
+        this.add(buttonPanelLeft, BorderLayout.WEST);
+
+        buttonPanelLeft.setLayout(new GridBagLayout());
+        c = new GridBagConstraints();
+
+        nextFrameButton = new JButton("next Frame");
+        lastFrameButton = new JButton("prev Frame");
+        endButton = new JButton("end");
+        playButton = new JButton("play");
+
+        playLabel = new JLabel("delay in seconds");
+
+        delayField = new JTextField(5);
+        delayField.setText("2");
+
+        delaySlider = new JSlider(0, 5, 2);
+        //delaySlider.setMaximum(5);
+        delaySlider.setPaintTicks(true);
+        delaySlider.setMajorTickSpacing(1);
+        delaySlider.setPaintLabels(true);
+        delaySlider.addChangeListener(this);
+        
+       
+        
+        endButton.addActionListener(this);
+        nextFrameButton.addActionListener(this);
+        playButton.addActionListener(this);
+
+        //c.ipadx = 2;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        buttonPanelLeft.add(nextFrameButton, c);
+
+        c.gridy = 1;
+        buttonPanelLeft.add(lastFrameButton, c);
+
+        c.gridy = 2;
+        buttonPanelLeft.add(endButton, c);
+
+        c.gridy = 3;
+        buttonPanelLeft.add(playLabel, c);
+
+        c.gridy = 4;
+        buttonPanelLeft.add(delaySlider, c);
+
+
+        c.gridy = 5;
+        buttonPanelLeft.add(delayField, c);
+
+     
+       
+        c.gridx = 0;
+        c.gridy = 6;
+        buttonPanelLeft.add(playButton, c);
+
+
+       setSize(1000, 700);
+
+       
+       
+    }
+
+    int counter = 0;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource() == endButton){
+            
+            if(timer != null){
+                timer.cancel();
+            }
+           dispose();
+        }
+
+        if(e.getSource() == nextFrameButton){
+            
+            displayNewFrame();
+            
+        }
+
+        if(e.getSource() == playButton){
+
+            System.out.println("playButton Pressed");
+
+            
+
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+
+                @Override
+                public void run() {
+                    displayNewFrame();
+                }
+                
+            }, 1000, Integer.parseInt(delayField.getText()) * 10);
+
+        }
+        
+        
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e){
+        
+        if(e.getSource() == delaySlider){
+            delayField.setText(Integer.toString(delaySlider.getValue()));
+        }
+
+    }
+
+
+    private ArrayList<int[]> bubblesort(int[] arrayto) {
+
+        int[] tempArray = new int[arrayto.length];
+
+        for(int c = 0; c<tempArray.length; c++){
+            tempArray[c] = arrayto[c];
+        }
+
+        steps = new ArrayList<>();
+        highlights = new ArrayList<>();
+
+        System.out.println("Array to be sorted: " + Arrays.toString(tempArray));
+
+        int n = tempArray.length;  
+        int temp = 0;  
+        
+         for(int i=0; i < n; i++){
+                 for(int j=1; j < (n-i); j++){  
+                          if(tempArray[j-1] > tempArray[j]){  
+                                 //swap elements  
+                                 temp = tempArray[j-1];  
+                                 tempArray[j-1] = tempArray[j];  
+                                 tempArray[j] = temp;
+
+                                 int[] stepArray = new int[tempArray.length];
+
+                                 for(int b = 0; b<tempArray.length; b++){
+                                     stepArray[b] = tempArray[b];
+                                 }
+                                 highlights.add(new int[]{j-1, j});
+                                 steps.add(stepArray);
+
+
+
+                                /*  System.out.println(Arrays.toString(tempArray));
+                                 steps.add(tempArray);
+                                 System.out.println(steps.toString()); */
+
+                             
+
+                         }  
+                         
+                 }  
+         }  
+     
+         return steps;
+        }
+
+        public void displayNewFrame(){
+            if(counter < steps.size()){
+                int[] frame = steps.get(counter);
+                int[] highlight = highlights.get(counter);
+
+                playSwitchSound();
+
+                //System.out.println("nextFrame pressed");
+
+                remove(drawPanel);
+                drawPanel = new GraphicsPanel(frame, highlight);
+
+                this.add(drawPanel, BorderLayout.CENTER);
+                setVisible(true);
+                repaint();
+                counter++;
+
+                if(counter == steps.size()){
+                    timer.cancel();
+                }
+            }
+        }
+
+        public void playSwitchSound(){
+            
+            File sound = new File("C:/Users/Leon/eclipse-workspace/SortVisualizer/src/switch2.wav");
+            
+            try {
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(sound);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioStream);
+
+                clip.start();
+
+            } catch (UnsupportedAudioFileException e) {
+               
+                e.printStackTrace();
+            } catch (IOException e) {
+                
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+               
+                e.printStackTrace();
+            }
+
+        }
+
+
+}
