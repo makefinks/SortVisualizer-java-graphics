@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 
 import java.awt.*;
 
-public class menuFrame extends JFrame implements ActionListener{
-    
+public class menuFrame extends JFrame implements ActionListener {
+
     GridBagConstraints c;
     JLabel label;
 
@@ -24,15 +24,12 @@ public class menuFrame extends JFrame implements ActionListener{
 
     JButton startButton;
 
-    public menuFrame(){
-
-        
+    public menuFrame() {
 
         c = new GridBagConstraints();
         setLayout(new GridBagLayout());
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 
         label = new JLabel("Sort Visualizer");
         label.setFont(new Font("Arial", Font.BOLD, 40));
@@ -69,12 +66,11 @@ public class menuFrame extends JFrame implements ActionListener{
         c.gridy = 2;
         c.gridwidth = 1;
         add(size50Button, c);
-    
+
         c.gridx = 2;
         c.gridy = 2;
         c.gridwidth = 1;
         add(size100Button, c);
-
 
         bubbleSortButton = new JRadioButton("Bubble Sort");
         selectionSortButton = new JRadioButton("Selction Sort");
@@ -91,7 +87,6 @@ public class menuFrame extends JFrame implements ActionListener{
         c.gridwidth = 1;
         add(selectionSortButton, c);
 
-
         startButton = new JButton("Start");
         startButton.addActionListener(this);
         c.gridx = 0;
@@ -103,53 +98,51 @@ public class menuFrame extends JFrame implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == size10Button){
+        if (e.getSource() == size10Button) {
             arrLengthField.setText("10");
-          
+
         }
-        
-        if(e.getSource() == size50Button){
+
+        if (e.getSource() == size50Button) {
             arrLengthField.setText("50");
         }
 
-        if(e.getSource() == size100Button){
+        if (e.getSource() == size100Button) {
             arrLengthField.setText("100");
         }
-        
-        if(e.getSource() == bubbleSortButton){
+
+        if (e.getSource() == bubbleSortButton) {
             selectionSortButton.setSelected(false);
-            
-        }
-        
-        if(e.getSource() == selectionSortButton){
-            bubbleSortButton.setSelected(false);
-            
+
         }
 
-        if(e.getSource() == startButton && bubbleSortButton.isSelected()){
-          
-            try{
+        if (e.getSource() == selectionSortButton) {
+            bubbleSortButton.setSelected(false);
+
+        }
+
+        if (e.getSource() == startButton && bubbleSortButton.isSelected()) {
+
+            try {
                 int size = Integer.parseInt(arrLengthField.getText());
                 new SortFrame(size, "bubble");
-            }catch (Exception eee){
+            } catch (Exception eee) {
                 eee.printStackTrace();
             }
 
-        } else if(e.getSource() == startButton && selectionSortButton.isSelected()){
-       
-            try{
+        } else if (e.getSource() == startButton && selectionSortButton.isSelected()) {
+
+            try {
                 int size = Integer.parseInt(arrLengthField.getText());
                 new SortFrame(size, "selection");
-            }catch (Exception eee){
+            } catch (Exception eee) {
                 eee.printStackTrace();
             }
 
         }
 
     }
-
-
 
 }

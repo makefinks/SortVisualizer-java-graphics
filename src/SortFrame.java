@@ -18,10 +18,10 @@ import javax.swing.event.ChangeEvent;
 
 import javax.sound.sampled.*;
 
-
 import javax.swing.*;
-public class SortFrame extends JFrame implements ActionListener, ChangeListener{
-    
+
+public class SortFrame extends JFrame implements ActionListener, ChangeListener {
+
     JPanel drawPanel;
     JPanel buttonPanelLeft;
     GridBagConstraints c;
@@ -36,46 +36,38 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
     JSlider delaySlider;
 
     Timer timer;
-   
-    
+
     int[] array;
-  
-    
 
     ArrayList<int[]> steps;
     ArrayList<int[]> highlights;
 
-    public SortFrame(int arraySize, String algo){
+    public SortFrame(int arraySize, String algo) {
 
-       
         drawPanel = new JPanel();
 
         setVisible(true);
         setLayout(new BorderLayout());
-    
-        
 
         array = generateArray(arraySize);
 
-     /*     GraphicsPanel graphicsPanel = new GraphicsPanel(array);
-         add(graphicsPanel, BorderLayout.CENTER);
- */
+        /*
+         * GraphicsPanel graphicsPanel = new GraphicsPanel(array);
+         * add(graphicsPanel, BorderLayout.CENTER);
+         */
 
-        int start[] = {0, 0};
+        int start[] = { 0, 0 };
         drawPanel = new GraphicsPanel(array, start);
         add(drawPanel, BorderLayout.CENTER);
         setVisible(true);
 
-
-       if(algo.equals("bubble")){
+        if (algo.equals("bubble")) {
             steps = bubblesort(array);
-       }
+        }
 
-       if(algo.equals("selection")){
-           steps = selectionsort(array);
-       }
-
-
+        if (algo.equals("selection")) {
+            selectionsort(array);
+        }
 
         buttonPanelLeft = new JPanel();
         this.add(buttonPanelLeft, BorderLayout.WEST);
@@ -94,19 +86,16 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
         delayField.setText("2");
 
         delaySlider = new JSlider(0, 5, 2);
-        //delaySlider.setMaximum(5);
         delaySlider.setPaintTicks(true);
         delaySlider.setMajorTickSpacing(1);
         delaySlider.setPaintLabels(true);
         delaySlider.addChangeListener(this);
-        
-       
-        
+
         endButton.addActionListener(this);
         nextFrameButton.addActionListener(this);
         playButton.addActionListener(this);
 
-        //c.ipadx = 2;
+        // c.ipadx = 2;
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
@@ -124,47 +113,39 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
         c.gridy = 4;
         buttonPanelLeft.add(delaySlider, c);
 
-
         c.gridy = 5;
         buttonPanelLeft.add(delayField, c);
 
-     
-       
         c.gridx = 0;
         c.gridy = 6;
         buttonPanelLeft.add(playButton, c);
 
+        setSize(1000, 700);
 
-       setSize(1000, 700);
-
-       
-       
     }
 
-
     int counter = 0;
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        if(e.getSource() == endButton){
-            
-            if(timer != null){
+
+        if (e.getSource() == endButton) {
+
+            if (timer != null) {
                 timer.cancel();
             }
-           dispose();
+            dispose();
         }
 
-        if(e.getSource() == nextFrameButton){
-            
+        if (e.getSource() == nextFrameButton) {
+
             displayNewFrame();
-            
+
         }
 
-        if(e.getSource() == playButton){
+        if (e.getSource() == playButton) {
 
             System.out.println("playButton Pressed");
-
-            
 
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
@@ -173,72 +154,52 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
                 public void run() {
                     displayNewFrame();
                 }
-                
+
             }, 1000, Integer.parseInt(delayField.getText()) * 10);
 
         }
-        
-        
+
     }
 
     @Override
-    public void stateChanged(ChangeEvent e){
-        
-        if(e.getSource() == delaySlider){
+    public void stateChanged(ChangeEvent e) {
+
+        if (e.getSource() == delaySlider) {
             delayField.setText(Integer.toString(delaySlider.getValue()));
         }
 
     }
 
-    private ArrayList<int[]> selectionsort(int[] arr) {
+    private void selectionsort(int[] arr) {
 
         steps = new ArrayList<int[]>();
         highlights = new ArrayList<int[]>();
 
         int n = arr.length;
-  
-       
+
         for (int i = 0; i < n-1; i++)
         {
-            
             int min_idx = i;
-            for (int j = i+1; j < n; j++){
+            for (int j = i+1; j < n; j++)
                 if (arr[j] < arr[min_idx])
                     min_idx = j;
-  
+
             int temp = arr[min_idx];
             arr[min_idx] = arr[i];
             arr[i] = temp;
-            int[] stepArray = new int[n];
-
-            for(int b = 0; b<n; b++){
-                stepArray[b] = arr[b];
-            }
-            
+            int[] stepArray = arr.clone();
             steps.add(stepArray);
             highlights.add(new int[]{min_idx, i});
-            }
+
         }
 
-        return steps;
     }
-           
-
-
-
-               
-           
-
-       
-
-
-   
 
     private ArrayList<int[]> bubblesort(int[] arrayto) {
 
         int[] tempArray = new int[arrayto.length];
 
-        for(int c = 0; c<tempArray.length; c++){
+        for (int c = 0; c < tempArray.length; c++) {
             tempArray[c] = arrayto[c];
         }
 
@@ -247,114 +208,111 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
 
         System.out.println("Array to be sorted: " + Arrays.toString(tempArray));
 
-        int n = tempArray.length;  
-        int temp = 0;  
-        
-         for(int i=0; i < n; i++){
-                 for(int j=1; j < (n-i); j++){  
-                          if(tempArray[j-1] > tempArray[j]){  
-                                 //swap elements  
-                                 temp = tempArray[j-1];  
-                                 tempArray[j-1] = tempArray[j];  
-                                 tempArray[j] = temp;
+        int n = tempArray.length;
+        int temp = 0;
 
-                                 int[] stepArray = new int[tempArray.length];
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+                if (tempArray[j - 1] > tempArray[j]) {
+                    // swap elements
+                    temp = tempArray[j - 1];
+                    tempArray[j - 1] = tempArray[j];
+                    tempArray[j] = temp;
 
-                                 for(int b = 0; b<tempArray.length; b++){
-                                     stepArray[b] = tempArray[b];
-                                 }
-                                 highlights.add(new int[]{j-1, j});
-                                 steps.add(stepArray);
+                    int[] stepArray = new int[tempArray.length];
 
+                    for (int b = 0; b < tempArray.length; b++) {
+                        stepArray[b] = tempArray[b];
+                    }
+                    highlights.add(new int[] { j - 1, j });
+                    steps.add(stepArray);
 
+                    /*
+                     * System.out.println(Arrays.toString(tempArray));
+                     * steps.add(tempArray);
+                     * System.out.println(steps.toString());
+                     */
 
-                                /*  System.out.println(Arrays.toString(tempArray));
-                                 steps.add(tempArray);
-                                 System.out.println(steps.toString()); */
+                }
 
-                             
-
-                         }  
-                         
-                 }  
-         }  
-     
-         return steps;
+            }
         }
 
-        public void displayNewFrame(){
-            if(counter < steps.size()){
-                int[] frame = steps.get(counter);
-                int[] highlight = highlights.get(counter);
+        return steps;
+    }
 
-                //playSwitchSound();
+    public void displayNewFrame() {
+        if (counter < steps.size()) {
+            int[] frame = steps.get(counter);
+            int[] highlight = highlights.get(counter);
 
-                //System.out.println("nextFrame pressed");
+            // playSwitchSound();
 
-                remove(drawPanel);
-                drawPanel = new GraphicsPanel(frame, highlight);
+            // System.out.println("nextFrame pressed");
 
-                this.add(drawPanel, BorderLayout.CENTER);
-                setVisible(true);
-                repaint();
-                counter++;
+            remove(drawPanel);
+            drawPanel = new GraphicsPanel(frame, highlight);
 
-                if(counter == steps.size()){
-                    if(timer != null){
-                        timer.cancel();
-                    }
+            this.add(drawPanel, BorderLayout.CENTER);
+            setVisible(true);
+            repaint();
+            counter++;
+
+            if (counter == steps.size()) {
+                if (timer != null) {
+                    timer.cancel();
                 }
             }
         }
+    }
 
-        public void playSwitchSound(){
-            
-            File sound = new File("C:/Users/Leon/eclipse-workspace/SortVisualizer/src/switch.wav");
-            
-            try {
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(sound);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioStream);
+    public void playSwitchSound() {
 
-                clip.start();
+        File sound = new File("C:/Users/Leon/eclipse-workspace/SortVisualizer/src/switch.wav");
 
-            } catch (UnsupportedAudioFileException e) {
-               
-                e.printStackTrace();
-            } catch (IOException e) {
-                
-                e.printStackTrace();
-            } catch (LineUnavailableException e) {
-               
-                e.printStackTrace();
-            }
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(sound);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
 
+            clip.start();
+
+        } catch (UnsupportedAudioFileException e) {
+
+            e.printStackTrace();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+
+            e.printStackTrace();
         }
 
-        public int[] generateArray(int arraySize){
+    }
 
-            int[] temp = new int[arraySize];
+    public int[] generateArray(int arraySize) {
 
-            //fill with numbers
-            for(int i = 1; i<arraySize; i++){
-                temp[i-1] = i;
-            }
+        int[] temp = new int[arraySize];
 
-            //mix numbers
-            for(int x = 0; x<arraySize; x++){
-
-                Random rand = new Random();
-                int new_pos = rand.nextInt(arraySize);
-                int n = temp[new_pos];
-                temp[new_pos] = temp[x];
-                temp[x] = n;
-            }
-
-            System.out.println(Arrays.toString(temp));
-            return temp;
-
-
-
+        // fill with numbers
+        for (int i = 1; i <= arraySize; i++) {
+            temp[i - 1] = i;
         }
+        
+
+        // mix numbers
+        for (int x = 0; x < arraySize; x++) {
+
+            Random rand = new Random();
+            int new_pos = rand.nextInt(arraySize);
+            int n = temp[new_pos];
+            temp[new_pos] = temp[x];
+            temp[x] = n;
+        }
+
+        System.out.println(Arrays.toString(temp));
+        return temp;
+
+    }
 
 }
