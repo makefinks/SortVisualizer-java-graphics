@@ -120,14 +120,16 @@ public class menuFrame extends JFrame implements ActionListener{
         
         if(e.getSource() == bubbleSortButton){
             selectionSortButton.setSelected(false);
+            
         }
         
         if(e.getSource() == selectionSortButton){
             bubbleSortButton.setSelected(false);
+            
         }
 
-        if(e.getSource() == startButton && bubbleSortButton.isEnabled()){
-
+        if(e.getSource() == startButton && bubbleSortButton.isSelected()){
+          
             try{
                 int size = Integer.parseInt(arrLengthField.getText());
                 new SortFrame(size, "bubble");
@@ -135,10 +137,8 @@ public class menuFrame extends JFrame implements ActionListener{
                 eee.printStackTrace();
             }
 
-        }
-
-      /*   if(e.getSource() == startButton && selectionSortButton.isEnabled()){
-
+        } else if(e.getSource() == startButton && selectionSortButton.isSelected()){
+       
             try{
                 int size = Integer.parseInt(arrLengthField.getText());
                 new SortFrame(size, "selection");
@@ -146,7 +146,7 @@ public class menuFrame extends JFrame implements ActionListener{
                 eee.printStackTrace();
             }
 
-        } */
+        }
 
     }
 

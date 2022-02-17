@@ -55,25 +55,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
     
         
 
-        //generate Array with Random Numbers
-        array = new int[arraySize];
-        Random rand = new Random();
-        for(int i=0; i<array.length; i++){
-            int rnum = rand.nextInt(100)+1;
-            
-            boolean flag = false;
-
-            for(int b = 0; b<array.length; b++){
-                if(array[b] == rnum){
-                    flag = true;
-                    
-                }
-            }
-            if(flag == false){
-                array[i] = rnum;
-            }
-
-        }
+        array = generateArray(arraySize);
 
      /*     GraphicsPanel graphicsPanel = new GraphicsPanel(array);
          add(graphicsPanel, BorderLayout.CENTER);
@@ -87,14 +69,12 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
 
        if(algo.equals("bubble")){
             steps = bubblesort(array);
-            for(int[] a : steps){
-                //System.out.println(Arrays.toString(a));
-            }
        }
 
-       for(int[] a : highlights){
-           System.out.println(Arrays.toString(a));
+       if(algo.equals("selection")){
+           steps = selectionsort(array);
        }
+
 
 
         buttonPanelLeft = new JPanel();
@@ -161,6 +141,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
        
     }
 
+
     int counter = 0;
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -209,6 +190,49 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
 
     }
 
+    private ArrayList<int[]> selectionsort(int[] arr) {
+
+        steps = new ArrayList<int[]>();
+        highlights = new ArrayList<int[]>();
+
+        int n = arr.length;
+  
+       
+        for (int i = 0; i < n-1; i++)
+        {
+            
+            int min_idx = i;
+            for (int j = i+1; j < n; j++){
+                if (arr[j] < arr[min_idx])
+                    min_idx = j;
+  
+            int temp = arr[min_idx];
+            arr[min_idx] = arr[i];
+            arr[i] = temp;
+            int[] stepArray = new int[n];
+
+            for(int b = 0; b<n; b++){
+                stepArray[b] = arr[b];
+            }
+            
+            steps.add(stepArray);
+            highlights.add(new int[]{min_idx, i});
+            }
+        }
+
+        return steps;
+    }
+           
+
+
+
+               
+           
+
+       
+
+
+   
 
     private ArrayList<int[]> bubblesort(int[] arrayto) {
 
@@ -263,7 +287,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
                 int[] frame = steps.get(counter);
                 int[] highlight = highlights.get(counter);
 
-                playSwitchSound();
+                //playSwitchSound();
 
                 //System.out.println("nextFrame pressed");
 
@@ -276,14 +300,16 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
                 counter++;
 
                 if(counter == steps.size()){
-                    timer.cancel();
+                    if(timer != null){
+                        timer.cancel();
+                    }
                 }
             }
         }
 
         public void playSwitchSound(){
             
-            File sound = new File("C:/Users/Leon/eclipse-workspace/SortVisualizer/src/switch2.wav");
+            File sound = new File("C:/Users/Leon/eclipse-workspace/SortVisualizer/src/switch.wav");
             
             try {
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(sound);
@@ -305,5 +331,30 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener{
 
         }
 
+        public int[] generateArray(int arraySize){
+
+            int[] temp = new int[arraySize];
+
+            //fill with numbers
+            for(int i = 1; i<arraySize; i++){
+                temp[i-1] = i;
+            }
+
+            //mix numbers
+            for(int x = 0; x<arraySize; x++){
+
+                Random rand = new Random();
+                int new_pos = rand.nextInt(arraySize);
+                int n = temp[new_pos];
+                temp[new_pos] = temp[x];
+                temp[x] = n;
+            }
+
+            System.out.println(Arrays.toString(temp));
+            return temp;
+
+
+
+        }
 
 }

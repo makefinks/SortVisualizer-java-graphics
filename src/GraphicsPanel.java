@@ -52,10 +52,13 @@ public class GraphicsPanel extends JPanel{
         g2d.fill(background);
 
         for(int i = 0; i<arrayl.length; i++){
-
+/* 
             int barHeight = getHeight() - heightBarPixel*arrayl[i];
-            int topleft = heightBarPixel*arrayl[i];
-           
+            int topleft = heightBarPixel*arrayl[i]; */
+
+
+            int barHeight = heightBarPixel*arrayl[i];
+            int topleft = getHeight() - (heightBarPixel*arrayl[i]);
             if(i == highlights[0] || i== highlights[1]){
                 Rectangle2D.Double r = new Rectangle2D.Double(i*widthBar, topleft, widthBar, barHeight);
                 g2d.setColor(Color.red);
