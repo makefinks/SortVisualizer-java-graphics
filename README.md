@@ -1,18 +1,23 @@
-## Getting Started
+## About
+This project will be expanded to practice and to reinforce my knowledge of Swing and java graphics for the upcoming semester (2)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Sort Visualizer
 
-## Folder Structure
+**Code is subject to change. This is merely a prototype with basic function**
 
-The workspace contains two folders by default, where:
+The Application can be used to visualize different sorting algorithms by mapping numbers stored in an array to respectively sized bars.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Early Images (subject to change)
+Main menu:  
+![early picture 1](https://user-images.githubusercontent.com/62705365/154361990-149bbbb2-881f-4185-93eb-50914acfcdcd.png)
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Visualization screen:
+![early picture 2](https://user-images.githubusercontent.com/62705365/154362337-21321eb7-9360-4e7b-b22e-cb6d7c2b3f9c.png)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+# TODO
+- fix errors caused by large arrays
+- error handling (wrong inputs)
+- add more algorithms
+- improve performance
+- improve GUI
+- add correct frame timing
