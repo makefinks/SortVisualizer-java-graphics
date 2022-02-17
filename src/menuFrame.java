@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,9 @@ public class menuFrame extends JFrame implements ActionListener {
     GridBagConstraints c;
     JLabel label;
 
+
+    JPanel arraySizePanel;
+
     JTextField arrLengthField;
     JLabel arraySizeLabel;
 
@@ -19,8 +23,10 @@ public class menuFrame extends JFrame implements ActionListener {
     JButton size50Button;
     JButton size100Button;
 
+    JPanel normalRadioButtonPanel;
     JRadioButton bubbleSortButton;
     JRadioButton selectionSortButton;
+    JRadioButton insertionSortButton;
 
     JButton startButton;
 
@@ -39,16 +45,19 @@ public class menuFrame extends JFrame implements ActionListener {
         c.gridwidth = 3;
         add(label, c);
 
+        arraySizePanel = new JPanel();
+        JPanel top = new JPanel();
+        top.setLayout(new GridLayout(1,2));
+        arraySizePanel.setLayout(new GridLayout(2, 0));
+        arraySizePanel.setBorder(new TitledBorder("Array"));
+
+        
         arrLengthField = new JTextField();
+        arrLengthField.setSize(100, 100);
         arraySizeLabel = new JLabel("Array Size");
-        arrLengthField.setText("10");
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 2;
-        add(arrLengthField, c);
-        c.gridx = 2;
-        c.gridwidth = 1;
-        add(arraySizeLabel, c);
+        top.add(arrLengthField);
+        top.add(arraySizeLabel);
+
 
         size10Button = new JButton("10");
         size50Button = new JButton("50");
@@ -56,8 +65,30 @@ public class menuFrame extends JFrame implements ActionListener {
         size10Button.addActionListener(this);
         size50Button.addActionListener(this);
         size100Button.addActionListener(this);
+        
+        arraySizePanel.add(top);
+        arraySizePanel.add(size10Button);
+        arraySizePanel.add(size50Button);
+        arraySizePanel.add(size100Button);
 
         c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 3;
+        add(arraySizePanel, c);
+
+
+       /*  arrLengthField.setText("10");
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 2;
+        add(arrLengthField, c);
+        c.gridx = 2;
+        c.gridwidth = 1;
+        add(arraySizeLabel, c);
+ */
+       
+
+        /* c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 1;
         add(size10Button, c);
@@ -71,21 +102,25 @@ public class menuFrame extends JFrame implements ActionListener {
         c.gridy = 2;
         c.gridwidth = 1;
         add(size100Button, c);
-
+ */
+        normalRadioButtonPanel = new JPanel();
+        normalRadioButtonPanel.setLayout(new FlowLayout());
+        normalRadioButtonPanel.setBorder(new TitledBorder("Standard"));
         bubbleSortButton = new JRadioButton("Bubble Sort");
         selectionSortButton = new JRadioButton("Selction Sort");
+        insertionSortButton = new JRadioButton("Insertion Sort");
         bubbleSortButton.addActionListener(this);
         selectionSortButton.addActionListener(this);
+        insertionSortButton.addActionListener(this);
+        normalRadioButtonPanel.add(bubbleSortButton);
+        normalRadioButtonPanel.add(selectionSortButton);
+        normalRadioButtonPanel.add(insertionSortButton);
+
 
         c.gridx = 0;
-        c.gridy = 3;
-        c.gridwidth = 1;
-        add(bubbleSortButton, c);
-
-        c.gridx = 1;
-        c.gridy = 3;
-        c.gridwidth = 1;
-        add(selectionSortButton, c);
+        c.gridy = 4;
+        c.gridwidth = 3;
+        add(normalRadioButtonPanel, c);
 
         startButton = new JButton("Start");
         startButton.addActionListener(this);
