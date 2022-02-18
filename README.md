@@ -9,7 +9,8 @@ The Application can be used to visualize different sorting algorithms by mapping
 
 ## Early Images (subject to change)
 Main menu:  
-![early picture 1](https://user-images.githubusercontent.com/62705365/154361990-149bbbb2-881f-4185-93eb-50914acfcdcd.png)
+![early ](https://user-images.githubusercontent.com/62705365/154692681-54859428-0063-4397-8d0c-9e25d46c363e.png)
+
 
 Visualization screen:
 ![early picture 2](https://user-images.githubusercontent.com/62705365/154362337-21321eb7-9360-4e7b-b22e-cb6d7c2b3f9c.png)
