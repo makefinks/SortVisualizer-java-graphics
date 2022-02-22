@@ -24,6 +24,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
     JPanel drawPanel;
     JPanel buttonPanelLeft;
+    JPanel statsPanelTop;
     GridBagConstraints c;
 
     JTextField delayField;
@@ -62,11 +63,15 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         setVisible(true);
 
         if (algo.equals("bubble")) {
-            steps = bubblesort(array);
+            bubblesort(array);
         }
 
         if (algo.equals("selection")) {
             selectionsort(array);
+        }
+
+        if (algo.equals("insertion")){
+            insertionSort(array);
         }
 
         buttonPanelLeft = new JPanel();
@@ -119,6 +124,10 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         c.gridx = 0;
         c.gridy = 6;
         buttonPanelLeft.add(playButton, c);
+
+        statsPanelTop = new JPanel();
+        add(statsPanelTop, BorderLayout.NORTH);
+        
 
         setSize(1000, 700);
 
@@ -180,22 +189,27 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         for (int i = 0; i < n-1; i++)
         {
             int min_idx = i;
-            for (int j = i+1; j < n; j++)
-                if (arr[j] < arr[min_idx])
-                    min_idx = j;
+            for (int j = i+1; j < n; j++){
+                if (arr[j] < arr[min_idx]){
+                   min_idx = j;
+                  // highlights.add(new int[]{j});
+                    }
+                }
+                   
 
             int temp = arr[min_idx];
             arr[min_idx] = arr[i];
             arr[i] = temp;
             int[] stepArray = arr.clone();
+            highlights.add(new int[]{i});
             steps.add(stepArray);
-            highlights.add(new int[]{min_idx, i});
+            
 
         }
 
     }
 
-    private ArrayList<int[]> bubblesort(int[] arrayto) {
+    private void bubblesort(int[] arrayto) {
 
         int[] tempArray = new int[arrayto.length];
 
@@ -206,7 +220,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         steps = new ArrayList<>();
         highlights = new ArrayList<>();
 
-        System.out.println("Array to be sorted: " + Arrays.toString(tempArray));
+      
 
         int n = tempArray.length;
         int temp = 0;
@@ -224,7 +238,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
                     for (int b = 0; b < tempArray.length; b++) {
                         stepArray[b] = tempArray[b];
                     }
-                    highlights.add(new int[] { j - 1, j });
+                    highlights.add(new int[]{j});
                     steps.add(stepArray);
 
                     /*
@@ -237,9 +251,33 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
             }
         }
-
-        return steps;
     }
+
+    public void insertionSort(int[] arr){
+
+        System.out.println(Arrays.toString(arr));
+
+        steps = new ArrayList<>();
+        highlights = new ArrayList<>();
+        
+       int n = arr.length;
+       for(int i = 1; i < n; ++i){
+           int key = arr[i];
+           int j = i - 1;
+
+           while(j >= 0 && arr[j] > key){
+               arr[j + 1] = arr[j];
+               j = j-1;
+               
+           }
+           arr[j+1] = key;
+           highlights.add(new int[]{j});
+           steps.add(arr.clone());
+           
+       }
+
+    }
+
 
     public void displayNewFrame() {
         if (counter < steps.size()) {

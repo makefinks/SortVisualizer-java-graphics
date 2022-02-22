@@ -19,9 +19,8 @@ public class GraphicsPanel extends JPanel {
             arrayl[i] = array[i];
         }
 
-        this.highlights = new int[highlights.length];
-        this.highlights[0] = highlights[0];
-        this.highlights[1] = highlights[1];
+        this.highlights = highlights.clone();
+       
 
         // Debug
         // System.out.println("Array to be displayed: " + Arrays.toString(array));
@@ -47,6 +46,8 @@ public class GraphicsPanel extends JPanel {
         g2d.setColor(Color.black);
         g2d.fill(background);
 
+        System.out.println("drawing: " + Arrays.toString(arrayl));
+
         for (int i = 0; i < arrayl.length; i++) {
             /*
              * int barHeight = getHeight() - heightBarPixel*arrayl[i];
@@ -55,7 +56,7 @@ public class GraphicsPanel extends JPanel {
 
             int barHeight = heightBarPixel * arrayl[i];
             int topleft = getHeight() - (heightBarPixel * arrayl[i]);
-            if (i == highlights[0] || i == highlights[1]) {
+            if (i == highlights[0]) {
                 Rectangle2D.Double r = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 g2d.setColor(Color.red);
                 g2d.fill(r);

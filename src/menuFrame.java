@@ -53,6 +53,7 @@ public class menuFrame extends JFrame implements ActionListener {
 
         
         arrLengthField = new JTextField();
+        arrLengthField.setText("10");
         arrLengthField.setSize(100, 100);
         arraySizeLabel = new JLabel("Array Size");
         top.add(arrLengthField);
@@ -172,6 +173,15 @@ public class menuFrame extends JFrame implements ActionListener {
             try {
                 int size = Integer.parseInt(arrLengthField.getText());
                 new SortFrame(size, "selection");
+            } catch (Exception eee) {
+                eee.printStackTrace();
+            }
+
+        } else if (e.getSource() == startButton && insertionSortButton.isSelected()) {
+
+            try {
+                int size = Integer.parseInt(arrLengthField.getText());
+                new SortFrame(size, "insertion");
             } catch (Exception eee) {
                 eee.printStackTrace();
             }
