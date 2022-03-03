@@ -1,6 +1,3 @@
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -36,6 +33,7 @@ public class menuFrame extends JFrame implements ActionListener {
         setLayout(new GridBagLayout());
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         label = new JLabel("Sort Visualizer");
         label.setFont(new Font("Arial", Font.BOLD, 40));
@@ -151,12 +149,19 @@ public class menuFrame extends JFrame implements ActionListener {
 
         if (e.getSource() == bubbleSortButton) {
             selectionSortButton.setSelected(false);
+            insertionSortButton.setSelected(false);
 
         }
 
         if (e.getSource() == selectionSortButton) {
             bubbleSortButton.setSelected(false);
+            insertionSortButton.setSelected(false);
 
+        }
+
+        if(e.getSource() == insertionSortButton){
+            bubbleSortButton.setSelected(false);
+            selectionSortButton.setSelected(false);
         }
 
         if (e.getSource() == startButton && bubbleSortButton.isSelected()) {
@@ -186,8 +191,16 @@ public class menuFrame extends JFrame implements ActionListener {
                 eee.printStackTrace();
             }
 
+        } else if (e.getSource() == startButton){
+            if(insertionSortButton.isSelected() == false && selectionSortButton.isSelected() == false && bubbleSortButton.isSelected() == false){
+                JOptionPane.showMessageDialog(this, "Please select an alogrithm and try again", "no selection", JOptionPane.INFORMATION_MESSAGE);
+            }
+          
+           
         }
 
     }
+
+   
 
 }
