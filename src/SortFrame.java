@@ -34,9 +34,14 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
     JButton endButton;
     JButton playButton;
     JLabel playLabel;
+    JLabel frameLabel;
     JSlider delaySlider;
 
     Timer timer;
+
+    //Frame stats
+    int maxFrames;
+    int currFrame;
 
     int[] array;
 
@@ -44,6 +49,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
     ArrayList<int[]> highlights;
 
     public SortFrame(int arraySize, String algo) {
+
 
         drawPanel = new JPanel();
 
@@ -86,6 +92,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         playButton = new JButton("play");
 
         playLabel = new JLabel("delay in seconds");
+        frameLabel = new JLabel();
 
         delayField = new JTextField(5);
         delayField.setText("2");
@@ -125,9 +132,15 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         c.gridy = 6;
         buttonPanelLeft.add(playButton, c);
 
+        c.gridx = 0;
+        c.gridy = 7;
+        buttonPanelLeft.add(frameLabel, c);
+
         statsPanelTop = new JPanel();
         add(statsPanelTop, BorderLayout.NORTH);
         
+       
+
 
         setSize(1000, 700);
 
@@ -251,6 +264,8 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
             }
         }
+
+       
     }
 
     public void insertionSort(int[] arr){
@@ -275,6 +290,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
            steps.add(arr.clone());
            
        }
+       
 
     }
 
@@ -283,6 +299,8 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         if (counter < steps.size()) {
             int[] frame = steps.get(counter);
             int[] highlight = highlights.get(counter);
+
+            frameLabel.setText("Frame " + (counter+1) + " / " + steps.size());
 
             // playSwitchSound();
 
