@@ -57,13 +57,19 @@ public class GraphicsPanel extends JPanel {
             int barHeight = heightBarPixel * arrayl[i];
             int topleft = getHeight() - (heightBarPixel * arrayl[i]);
             if (i == highlights[0]) {
-                Rectangle2D.Double r = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
+                Rectangle2D.Double rbar = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
+                Rectangle2D.Double rborder = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 g2d.setColor(Color.red);
-                g2d.fill(r);
+                g2d.fill(rbar);
+                g2d.setColor(Color.BLACK);
+                g2d.draw(rborder);
             } else {
-                Rectangle2D.Double r = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
+                Rectangle2D.Double rbar = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
+                Rectangle2D.Double rborder = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 g2d.setColor(Color.yellow);
-                g2d.fill(r);
+                g2d.fill(rbar);
+                g2d.setColor(Color.BLACK);
+                g2d.draw(rborder);
             }
 
         }
