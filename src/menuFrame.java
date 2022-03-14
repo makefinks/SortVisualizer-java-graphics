@@ -152,7 +152,7 @@ public class menuFrame extends JFrame implements ActionListener {
             insertionSortButton.setSelected(false);
 
         }
-
+        //change
         if (e.getSource() == selectionSortButton) {
             bubbleSortButton.setSelected(false);
             insertionSortButton.setSelected(false);
