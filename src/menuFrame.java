@@ -24,6 +24,7 @@ public class menuFrame extends JFrame implements ActionListener {
     JRadioButton bubbleSortButton;
     JRadioButton selectionSortButton;
     JRadioButton insertionSortButton;
+    JRadioButton quickSortButton;
 
     JButton startButton;
 
@@ -64,6 +65,9 @@ public class menuFrame extends JFrame implements ActionListener {
         size10Button.addActionListener(this);
         size50Button.addActionListener(this);
         size100Button.addActionListener(this);
+
+
+
         
         arraySizePanel.add(top);
         arraySizePanel.add(size10Button);
@@ -108,12 +112,15 @@ public class menuFrame extends JFrame implements ActionListener {
         bubbleSortButton = new JRadioButton("Bubble Sort");
         selectionSortButton = new JRadioButton("Selction Sort");
         insertionSortButton = new JRadioButton("Insertion Sort");
+        quickSortButton = new JRadioButton("Quick Sort");
         bubbleSortButton.addActionListener(this);
         selectionSortButton.addActionListener(this);
         insertionSortButton.addActionListener(this);
+        quickSortButton.addActionListener(this);
         normalRadioButtonPanel.add(bubbleSortButton);
         normalRadioButtonPanel.add(selectionSortButton);
         normalRadioButtonPanel.add(insertionSortButton);
+        normalRadioButtonPanel.add(quickSortButton);
 
 
         c.gridx = 0;
@@ -150,18 +157,27 @@ public class menuFrame extends JFrame implements ActionListener {
         if (e.getSource() == bubbleSortButton) {
             selectionSortButton.setSelected(false);
             insertionSortButton.setSelected(false);
+            quickSortButton.setSelected(false);
 
         }
-        //change
+
         if (e.getSource() == selectionSortButton) {
             bubbleSortButton.setSelected(false);
             insertionSortButton.setSelected(false);
+            quickSortButton.setSelected(false);
 
         }
 
         if(e.getSource() == insertionSortButton){
             bubbleSortButton.setSelected(false);
             selectionSortButton.setSelected(false);
+            quickSortButton.setSelected(false);
+        }
+
+        if(e.getSource() == quickSortButton){
+            bubbleSortButton.setSelected(false);
+            selectionSortButton.setSelected(false);
+            insertionSortButton.setSelected(false);
         }
 
         if (e.getSource() == startButton && bubbleSortButton.isSelected()) {

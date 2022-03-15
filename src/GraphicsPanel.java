@@ -33,7 +33,8 @@ public class GraphicsPanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         // System.out.println("repainting");
 
-        int widthBar = this.getWidth() / arrayl.length;
+        int widthBar = getWidth() / arrayl.length;
+       
         int largestElement = 0;
         for (int i : arrayl) {
             if (i > largestElement) {
