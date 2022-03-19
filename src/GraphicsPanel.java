@@ -33,15 +33,22 @@ public class GraphicsPanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         // System.out.println("repainting");
 
-        int widthBar = getWidth() / arrayl.length;
+
+        //TODO: Possible problem with the width being to small for large Arrays
+        Double widthBar = (double) (getWidth() /  (double) arrayl.length);
        
+
         int largestElement = 0;
         for (int i : arrayl) {
             if (i > largestElement) {
                 largestElement = i;
             }
         }
-        int heightBarPixel = this.getHeight() / largestElement;
+
+
+        double heightBarPixel = (double) (this.getHeight() /  (double) largestElement);
+        
+
 
         Rectangle2D.Double background = new Rectangle2D.Double(0, 0, getWidth(), getHeight());
         g2d.setColor(Color.black);
@@ -55,22 +62,29 @@ public class GraphicsPanel extends JPanel {
              * int topleft = heightBarPixel*arrayl[i];
              */
 
-            int barHeight = heightBarPixel * arrayl[i];
-            int topleft = getHeight() - (heightBarPixel * arrayl[i]);
+            Double barHeight = (double) (heightBarPixel * arrayl[i]);
+            Double topleft = (double) (getHeight() - (heightBarPixel * arrayl[i]));
             if (i == highlights[0]) {
                 Rectangle2D.Double rbar = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 Rectangle2D.Double rborder = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 g2d.setColor(Color.red);
                 g2d.fill(rbar);
                 g2d.setColor(Color.BLACK);
-                g2d.draw(rborder);
+
+                if(widthBar > 1){
+                    g2d.draw(rborder);
+                }
+                
             } else {
                 Rectangle2D.Double rbar = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 Rectangle2D.Double rborder = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 g2d.setColor(Color.yellow);
                 g2d.fill(rbar);
                 g2d.setColor(Color.BLACK);
-                g2d.draw(rborder);
+
+                if(widthBar > 1){
+                    g2d.draw(rborder);
+                }
             }
 
         }
