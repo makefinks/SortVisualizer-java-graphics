@@ -34,6 +34,9 @@ public class GraphicsPanel extends JPanel {
         // System.out.println("repainting");
 
 
+      //  g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+
         //TODO: Possible problem with the width being to small for large Arrays
         Double widthBar = (double) (getWidth() /  (double) arrayl.length);
        
@@ -71,7 +74,7 @@ public class GraphicsPanel extends JPanel {
                 g2d.fill(rbar);
                 g2d.setColor(Color.BLACK);
 
-                if(widthBar > 1){
+                if(widthBar > 3){
                     g2d.draw(rborder);
                 }
                 
@@ -82,7 +85,7 @@ public class GraphicsPanel extends JPanel {
                 g2d.fill(rbar);
                 g2d.setColor(Color.BLACK);
 
-                if(widthBar > 1){
+                if(widthBar > 3){
                     g2d.draw(rborder);
                 }
             }
