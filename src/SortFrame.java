@@ -151,6 +151,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         endButton.addActionListener(this);
         nextFrameButton.addActionListener(this);
         playButton.addActionListener(this);
+        lastFrameButton.addActionListener(this);
 
         // c.ipadx = 2;
         c.gridx = 0;
@@ -206,7 +207,17 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
         if (e.getSource() == nextFrameButton) {
 
+            counter++;
             displayNewFrame();
+          
+        }
+
+        if(e.getSource() == lastFrameButton){
+            
+            if(counter > 0){
+                counter--;
+                displayNewFrame();
+            }
 
         }
 
@@ -219,7 +230,14 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
                 @Override
                 public void run() {
+                    if(counter < steps.size()){
+                        counter++;
+                    }
                     displayNewFrame();
+
+                    if(counter == steps.size()){
+                        timer.cancel();
+                    }
                 }
 
             }, 1000, Integer.parseInt(delayField.getText()) * 10);
@@ -381,11 +399,10 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
             remove(drawPanel);
             drawPanel = new GraphicsPanel(frame, highlight);
-
             this.add(drawPanel, BorderLayout.CENTER);
             setVisible(true);
             repaint();
-            counter++;
+            //counter++
 
             if (counter == steps.size()) {
                 if (timer != null) {
