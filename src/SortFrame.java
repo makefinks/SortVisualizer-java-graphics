@@ -1,6 +1,10 @@
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
+import Algorithms.BubbleSort;
+import Algorithms.InsertionSort;
+import Algorithms.QuickSort;
+import Algorithms.SortCallBack;
 
 import java.awt.*;
 import java.util.Timer;
@@ -11,10 +15,9 @@ import java.util.Random;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
+
 
 import javax.sound.sampled.*;
 
@@ -45,12 +48,13 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
     int[] array;
 
-    ArrayList<int[]> steps;
-    ArrayList<int[]> highlights;
+    ArrayList<int[]> steps =  new ArrayList<>();
+    ArrayList<int[]> highlights = new ArrayList<>();
+
 
     public SortFrame(int arraySize, String algo) {
 
-
+        
         drawPanel = new JPanel();
 
         setVisible(true);
@@ -68,8 +72,23 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         add(drawPanel, BorderLayout.CENTER);
         setVisible(true);
 
+       
+
         if (algo.equals("bubble")) {
-            bubblesort(array);
+
+           // BubbleSort algorithm = new BubbleSort();
+           BubbleSort bubble = new BubbleSort();
+           
+            bubble.sort(array, new SortCallBack() {
+                @Override
+                public void update(int[] steps_, int[] highlights_) {
+                    
+                    steps.add(steps_);
+                    highlights.add(highlights_);
+                    
+                }
+            });
+
         }
 
         if (algo.equals("selection")) {
@@ -77,8 +96,34 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         }
 
         if (algo.equals("insertion")){
-            insertionSort(array);
+
+            InsertionSort insert = new InsertionSort();
+            insert.sort(array, new SortCallBack() {
+            @Override
+            public void update(int[] steps_, int[] highlights_) {
+                
+                steps.add(steps_);
+                highlights.add(highlights_);
+                
+            }
+            });
+
         }
+
+        if(algo.equals("quick")){
+            QuickSort quick = new QuickSort();
+            quick.sort(array, new SortCallBack(){
+            @Override
+            public void update(int[] steps_, int[] highlights_) {
+                
+                steps.add(steps_);
+                highlights.add(highlights_);
+                
+            }
+        });
+        }
+
+    
 
         buttonPanelLeft = new JPanel();
         this.add(buttonPanelLeft, BorderLayout.WEST);
@@ -194,9 +239,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
     private void selectionsort(int[] arr) {
 
-        steps = new ArrayList<int[]>();
-        highlights = new ArrayList<int[]>();
-
+      
         int n = arr.length;
 
         for (int i = 0; i < n-1; i++)
@@ -221,6 +264,34 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         }
 
     }
+
+    public static void mergeSort(int[] s) {
+		mergeSort(s, 0, s.length - 1);
+	}
+
+    public static void merge(int[] s, int li, int mi, int re) {
+		int[] temp = new int[re - li + 1];
+		for (int i = 0, j = li, k = mi; i < temp.length; i++)
+			if ((k > re) || ((j < mi) && (s[j] < s[k]))) {
+				temp[i] = s[j];
+				j++;
+			} else {
+				temp[i] = s[k];
+				k++;
+			}
+		for (int n = 0; n < temp.length; n++)
+			s[li + n] = temp[n];
+	}
+
+    public static void mergeSort(int[] s, int l, int r) {
+		if (l < r) {
+			int m = (l + r + 1) / 2;
+			mergeSort(s, l, m - 1);
+			mergeSort(s, m, r);
+			merge(s, l, m, r);
+			
+		}
+	}
 
     private void bubblesort(int[] arrayto) {
 
@@ -275,7 +346,10 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         steps = new ArrayList<>();
         highlights = new ArrayList<>();
         
+
+
        int n = arr.length;
+
        for(int i = 1; i < n; ++i){
            int key = arr[i];
            int j = i - 1;
@@ -297,14 +371,13 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
     public void displayNewFrame() {
         if (counter < steps.size()) {
+
             int[] frame = steps.get(counter);
             int[] highlight = highlights.get(counter);
 
             frameLabel.setText("Frame " + (counter+1) + " / " + steps.size());
 
             // playSwitchSound();
-
-            // System.out.println("nextFrame pressed");
 
             remove(drawPanel);
             drawPanel = new GraphicsPanel(frame, highlight);
@@ -352,9 +425,12 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
         // fill with numbers
         for (int i = 1; i <= arraySize; i++) {
-            temp[i - 1] = i;
+           temp[i - 1] = i;
         }
         
+
+
+
 
         // mix numbers
         for (int x = 0; x < arraySize; x++) {

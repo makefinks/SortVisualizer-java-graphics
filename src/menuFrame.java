@@ -207,7 +207,16 @@ public class menuFrame extends JFrame implements ActionListener {
                 eee.printStackTrace();
             }
 
-        } else if (e.getSource() == startButton){
+        } else if (e.getSource() == startButton && quickSortButton.isSelected()) {
+
+            try {
+                int size = Integer.parseInt(arrLengthField.getText());
+                new SortFrame(size, "quick");
+            } catch (Exception eee) {
+                eee.printStackTrace();
+            }
+
+        }else if (e.getSource() == startButton){
             if(insertionSortButton.isSelected() == false && selectionSortButton.isSelected() == false && bubbleSortButton.isSelected() == false){
                 JOptionPane.showMessageDialog(this, "Please select an alogrithm and try again", "no selection", JOptionPane.INFORMATION_MESSAGE);
             }

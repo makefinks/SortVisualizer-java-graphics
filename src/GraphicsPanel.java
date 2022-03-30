@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-import javax.swing.JComponent;
+
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.geom.*;
@@ -26,6 +26,15 @@ public class GraphicsPanel extends JPanel {
         // System.out.println("Array to be displayed: " + Arrays.toString(array));
     }
 
+    public boolean isContained(int[] arr, int number){
+       for(int i : arr){
+           if(arr[i] == number){
+               return true;
+           }
+       }
+       return false;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
 
@@ -34,13 +43,10 @@ public class GraphicsPanel extends JPanel {
         // System.out.println("repainting");
 
 
-      //  g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+       g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-
-        //TODO: Possible problem with the width being to small for large Arrays
         Double widthBar = (double) (getWidth() /  (double) arrayl.length);
        
-
         int largestElement = 0;
         for (int i : arrayl) {
             if (i > largestElement) {
@@ -48,10 +54,8 @@ public class GraphicsPanel extends JPanel {
             }
         }
 
-
         double heightBarPixel = (double) (this.getHeight() /  (double) largestElement);
         
-
 
         Rectangle2D.Double background = new Rectangle2D.Double(0, 0, getWidth(), getHeight());
         g2d.setColor(Color.black);
@@ -64,9 +68,9 @@ public class GraphicsPanel extends JPanel {
              * int barHeight = getHeight() - heightBarPixel*arrayl[i];
              * int topleft = heightBarPixel*arrayl[i];
              */
-
             Double barHeight = (double) (heightBarPixel * arrayl[i]);
             Double topleft = (double) (getHeight() - (heightBarPixel * arrayl[i]));
+
             if (i == highlights[0]) {
                 Rectangle2D.Double rbar = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
                 Rectangle2D.Double rborder = new Rectangle2D.Double(i * widthBar, topleft, widthBar, barHeight);
