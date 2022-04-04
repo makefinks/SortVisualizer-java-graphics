@@ -32,7 +32,7 @@ public class BubbleSort extends Algorithm{
                         stepArray[b] = tempArray[b];
                     }
                     
-                    callBack.update(tempArray.clone(), new int[]{j});
+                    callBack.update(tempArray.clone(), new int[]{j+1});
 
                     
                    

@@ -275,7 +275,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
             arr[min_idx] = arr[i];
             arr[i] = temp;
             int[] stepArray = arr.clone();
-            highlights.add(new int[]{i});
+            highlights.add(new int[]{min_idx});
             steps.add(stepArray);
             
 
@@ -395,7 +395,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
             frameLabel.setText("Frame " + (counter+1) + " / " + steps.size());
 
-            // playSwitchSound();
+            playsound(highlights.get(counter)[0], steps.size());
 
             remove(drawPanel);
             drawPanel = new GraphicsPanel(frame, highlight);
@@ -412,29 +412,34 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         }
     }
 
-    public void playSwitchSound() {
+    public static void playsound(double depth, int size) {
+		
+        //TODO: Modify depth value to my liking
+        depth = (depth / 10)+1;
 
-        File sound = new File("C:/Users/Leon/eclipse-workspace/SortVisualizer/src/switch.wav");
-
-        try {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(sound);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-
-            clip.start();
-
-        } catch (UnsupportedAudioFileException e) {
-
-            e.printStackTrace();
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-
-            e.printStackTrace();
-        }
-
-    }
+		byte[] buf = new byte[ 1 ];;
+	    AudioFormat af = new AudioFormat( (float )44100, 8, 1, true, false );
+	    SourceDataLine sdl = null;
+		try {
+			sdl = AudioSystem.getSourceDataLine(af);
+			sdl.open();
+		} catch (Exception e) {
+			
+		}
+	  
+	    sdl.start();
+	    for( int i = 0; i < 50 * (float )44100 / 1000; i++ ) {
+	        double angle = i / ( (float )44100 / 440 ) * depth * Math.PI;
+	        buf[ 0 ] = (byte )( Math.sin( angle ) * 100 );
+	        sdl.write( buf, 0, 1 );
+	    }
+	    sdl.drain();
+	    sdl.stop();
+		
+		
+		
+	}
+	
 
     public int[] generateArray(int arraySize) {
 

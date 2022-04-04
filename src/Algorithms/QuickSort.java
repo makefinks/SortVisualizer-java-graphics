@@ -46,7 +46,7 @@ public class QuickSort extends Algorithm{
 
 				int[] temp = Arrays.copyOf(s, s.length);
 
-                update.update(temp, new int[]{t});
+                update.update(temp, new int[]{r});
 			} else {
 				// System.out.println(l + " " + r);
 				int t = s[l];
@@ -55,7 +55,7 @@ public class QuickSort extends Algorithm{
 				
                 int[] temp = Arrays.copyOf(s, s.length);
 
-                update.update(temp, new int[]{t});
+                update.update(temp, new int[]{l});
 				
 		//		System.out.println("PivotPos: " + l);		
 				return l; // l ist die Position des Pivot-Elements
