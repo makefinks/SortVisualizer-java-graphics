@@ -4,6 +4,7 @@ import javax.swing.event.ChangeEvent;
 import Algorithms.BubbleSort;
 import Algorithms.InsertionSort;
 import Algorithms.QuickSort;
+import Algorithms.SelectionSort;
 import Algorithms.SortCallBack;
 
 import java.awt.*;
@@ -92,7 +93,21 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         }
 
         if (algo.equals("selection")) {
-            selectionsort(array);
+            
+            SelectionSort select = new SelectionSort();
+
+            select.sort(array, new SortCallBack(){
+            @Override
+            public void update(int[] steps_, int[] highlights_) {
+                
+                steps.add(steps_);
+                highlights.add(highlights_);
+                
+            }
+        });
+
+
+
         }
 
         if (algo.equals("insertion")){
@@ -185,15 +200,12 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         statsPanelTop = new JPanel();
         add(statsPanelTop, BorderLayout.NORTH);
         
-       
-
-
         setSize(1000, 700);
 
     }
 
+    //iterates over list 'steps'
     int counter = 0;
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -395,7 +407,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
             frameLabel.setText("Frame " + (counter+1) + " / " + steps.size());
 
-            playsound(highlights.get(counter)[0], steps.size());
+            playsound(highlights.get(counter)[0], array.length);
 
             remove(drawPanel);
             drawPanel = new GraphicsPanel(frame, highlight);
@@ -417,7 +429,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         //TODO: Modify depth value to my liking
         depth = (depth / 10)+1;
 
-		byte[] buf = new byte[ 1 ];;
+		byte[] buf = new byte[1];;
 	    AudioFormat af = new AudioFormat( (float )44100, 8, 1, true, false );
 	    SourceDataLine sdl = null;
 		try {
