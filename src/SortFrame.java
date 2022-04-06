@@ -267,33 +267,6 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
     }
 
-    private void selectionsort(int[] arr) {
-
-      
-        int n = arr.length;
-
-        for (int i = 0; i < n-1; i++)
-        {
-            int min_idx = i;
-            for (int j = i+1; j < n; j++){
-                if (arr[j] < arr[min_idx]){
-                   min_idx = j;
-                  // highlights.add(new int[]{j});
-                    }
-                }
-                   
-
-            int temp = arr[min_idx];
-            arr[min_idx] = arr[i];
-            arr[i] = temp;
-            int[] stepArray = arr.clone();
-            highlights.add(new int[]{min_idx});
-            steps.add(stepArray);
-            
-
-        }
-
-    }
 
     public static void mergeSort(int[] s) {
 		mergeSort(s, 0, s.length - 1);
@@ -369,36 +342,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
        
     }
 
-    public void insertionSort(int[] arr){
-
-        System.out.println(Arrays.toString(arr));
-
-        steps = new ArrayList<>();
-        highlights = new ArrayList<>();
-        
-
-
-       int n = arr.length;
-
-       for(int i = 1; i < n; ++i){
-           int key = arr[i];
-           int j = i - 1;
-
-           while(j >= 0 && arr[j] > key){
-               arr[j + 1] = arr[j];
-               j = j-1;
-               
-           }
-           arr[j+1] = key;
-           highlights.add(new int[]{j});
-           steps.add(arr.clone());
-           
-       }
-       
-
-    }
-
-
+    
     public void displayNewFrame() {
         if (counter < steps.size()) {
 
