@@ -292,56 +292,8 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 			mergeSort(s, l, m - 1);
 			mergeSort(s, m, r);
 			merge(s, l, m, r);
-			
 		}
 	}
-
-    private void bubblesort(int[] arrayto) {
-
-        int[] tempArray = new int[arrayto.length];
-
-        for (int c = 0; c < tempArray.length; c++) {
-            tempArray[c] = arrayto[c];
-        }
-
-        steps = new ArrayList<>();
-        highlights = new ArrayList<>();
-
-      
-
-        int n = tempArray.length;
-        int temp = 0;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 1; j < (n - i); j++) {
-                if (tempArray[j - 1] > tempArray[j]) {
-                    // swap elements
-                    temp = tempArray[j - 1];
-                    tempArray[j - 1] = tempArray[j];
-                    tempArray[j] = temp;
-
-                    int[] stepArray = new int[tempArray.length];
-
-                    for (int b = 0; b < tempArray.length; b++) {
-                        stepArray[b] = tempArray[b];
-                    }
-                    highlights.add(new int[]{j});
-                    steps.add(stepArray);
-
-                    /*
-                     * System.out.println(Arrays.toString(tempArray));
-                     * steps.add(tempArray);
-                     * System.out.println(steps.toString());
-                     */
-
-                }
-
-            }
-        }
-
-       
-    }
-
     
     public void displayNewFrame() {
         if (counter < steps.size()) {
