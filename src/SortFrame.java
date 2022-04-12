@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 
@@ -73,8 +71,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         add(drawPanel, BorderLayout.CENTER);
         setVisible(true);
 
-       
-
+    
         if (algo.equals("bubble")) {
 
            // BubbleSort algorithm = new BubbleSort();
@@ -105,8 +102,6 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
                 
             }
         });
-
-
 
         }
 
@@ -260,7 +255,6 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
     @Override
     public void stateChanged(ChangeEvent e) {
-
         if (e.getSource() == delaySlider) {
             delayField.setText(Integer.toString(delaySlider.getValue()));
         }
@@ -303,7 +297,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
             frameLabel.setText("Frame " + (counter+1) + " / " + steps.size());
 
-            playsound(highlights.get(counter)[0], array.length);
+          //  playsound(highlights.get(counter)[0], array.length);
 
             remove(drawPanel);
             drawPanel = new GraphicsPanel(frame, highlight);
@@ -358,10 +352,6 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
            temp[i - 1] = i;
         }
         
-
-
-
-
         // mix numbers
         for (int x = 0; x < arraySize; x++) {
 

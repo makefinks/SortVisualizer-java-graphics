@@ -26,6 +26,8 @@ public class menuFrame extends JFrame implements ActionListener {
     JRadioButton insertionSortButton;
     JRadioButton quickSortButton;
 
+    ButtonGroup algoRadios = new ButtonGroup();
+
     JButton startButton;
 
     public menuFrame() {
@@ -135,15 +137,21 @@ public class menuFrame extends JFrame implements ActionListener {
         c.gridwidth = 3;
         add(startButton, c);
 
+        algoRadios.add(selectionSortButton);
+        algoRadios.add(insertionSortButton);
+        algoRadios.add(bubbleSortButton);
+        algoRadios.add(quickSortButton);
+      
+        
         pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        /*
         if (e.getSource() == size10Button) {
             arrLengthField.setText("10");
-
         }
 
         if (e.getSource() == size50Button) {
@@ -158,7 +166,6 @@ public class menuFrame extends JFrame implements ActionListener {
             selectionSortButton.setSelected(false);
             insertionSortButton.setSelected(false);
             quickSortButton.setSelected(false);
-
         }
 
         if (e.getSource() == selectionSortButton) {
@@ -179,9 +186,10 @@ public class menuFrame extends JFrame implements ActionListener {
             selectionSortButton.setSelected(false);
             insertionSortButton.setSelected(false);
         }
+        */
+
 
         if (e.getSource() == startButton && bubbleSortButton.isSelected()) {
-
             try {
                 int size = Integer.parseInt(arrLengthField.getText());
                 new SortFrame(size, "bubble");
