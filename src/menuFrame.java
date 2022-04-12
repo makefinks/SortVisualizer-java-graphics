@@ -149,45 +149,18 @@ public class menuFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        /*
-        if (e.getSource() == size10Button) {
+        if(e.getSource() == size10Button){
             arrLengthField.setText("10");
         }
 
-        if (e.getSource() == size50Button) {
+
+        if(e.getSource() == size50Button){
             arrLengthField.setText("50");
         }
 
-        if (e.getSource() == size100Button) {
+        if(e.getSource() == size100Button){
             arrLengthField.setText("100");
         }
-
-        if (e.getSource() == bubbleSortButton) {
-            selectionSortButton.setSelected(false);
-            insertionSortButton.setSelected(false);
-            quickSortButton.setSelected(false);
-        }
-
-        if (e.getSource() == selectionSortButton) {
-            bubbleSortButton.setSelected(false);
-            insertionSortButton.setSelected(false);
-            quickSortButton.setSelected(false);
-
-        }
-
-        if(e.getSource() == insertionSortButton){
-            bubbleSortButton.setSelected(false);
-            selectionSortButton.setSelected(false);
-            quickSortButton.setSelected(false);
-        }
-
-        if(e.getSource() == quickSortButton){
-            bubbleSortButton.setSelected(false);
-            selectionSortButton.setSelected(false);
-            insertionSortButton.setSelected(false);
-        }
-        */
-
 
         if (e.getSource() == startButton && bubbleSortButton.isSelected()) {
             try {
