@@ -41,19 +41,13 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
     Timer timer;
 
-    //Frame stats
-    int maxFrames;
-    int currFrame;
-
     int[] array;
 
     ArrayList<int[]> steps =  new ArrayList<>();
     ArrayList<int[]> highlights = new ArrayList<>();
 
-
     public SortFrame(int arraySize, String algo) {
 
-        
         drawPanel = new JPanel();
 
         setVisible(true);
@@ -61,60 +55,44 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
         array = generateArray(arraySize);
 
-        /*
-         * GraphicsPanel graphicsPanel = new GraphicsPanel(array);
-         * add(graphicsPanel, BorderLayout.CENTER);
-         */
-
         int start[] = { 0, 0 };
         drawPanel = new GraphicsPanel(array, start);
         add(drawPanel, BorderLayout.CENTER);
         setVisible(true);
 
-    
         if (algo.equals("bubble")) {
 
-           // BubbleSort algorithm = new BubbleSort();
            BubbleSort bubble = new BubbleSort();
-           
+
             bubble.sort(array, new SortCallBack() {
                 @Override
                 public void update(int[] steps_, int[] highlights_) {
-                    
                     steps.add(steps_);
                     highlights.add(highlights_);
-                    
                 }
             });
 
         }
 
         if (algo.equals("selection")) {
-            
             SelectionSort select = new SelectionSort();
-
             select.sort(array, new SortCallBack(){
             @Override
             public void update(int[] steps_, int[] highlights_) {
-                
                 steps.add(steps_);
                 highlights.add(highlights_);
-                
             }
         });
 
         }
 
         if (algo.equals("insertion")){
-
             InsertionSort insert = new InsertionSort();
             insert.sort(array, new SortCallBack() {
             @Override
             public void update(int[] steps_, int[] highlights_) {
-                
                 steps.add(steps_);
                 highlights.add(highlights_);
-                
             }
             });
 
@@ -125,16 +103,13 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
             quick.sort(array, new SortCallBack(){
             @Override
             public void update(int[] steps_, int[] highlights_) {
-                
                 steps.add(steps_);
                 highlights.add(highlights_);
-                
             }
         });
         }
 
-    
-
+        //Button Panel
         buttonPanelLeft = new JPanel();
         this.add(buttonPanelLeft, BorderLayout.WEST);
 
@@ -204,53 +179,50 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        //Stop the timer when the end button is pressed
         if (e.getSource() == endButton) {
-
             if (timer != null) {
                 timer.cancel();
             }
             dispose();
         }
 
+        //show next Frame
         if (e.getSource() == nextFrameButton) {
-
             counter++;
             displayNewFrame();
-          
         }
 
+        //show last Frame
         if(e.getSource() == lastFrameButton){
-            
             if(counter > 0){
                 counter--;
                 displayNewFrame();
             }
-
         }
 
+
+        //play all frames
         if (e.getSource() == playButton) {
-
             System.out.println("playButton Pressed");
-
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
-
                 @Override
                 public void run() {
+                    //increase counter while there are still frames
                     if(counter < steps.size()){
                         counter++;
                     }
+                    //display new Frame
                     displayNewFrame();
-
+                    //if there are no frames left, cancel the timer
                     if(counter == steps.size()){
                         timer.cancel();
                     }
                 }
-
+                //delay Settings
             }, 1000, Integer.parseInt(delayField.getText()) * 10);
-
         }
-
     }
 
     @Override
@@ -258,37 +230,8 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
         if (e.getSource() == delaySlider) {
             delayField.setText(Integer.toString(delaySlider.getValue()));
         }
-
     }
 
-
-    public static void mergeSort(int[] s) {
-		mergeSort(s, 0, s.length - 1);
-	}
-
-    public static void merge(int[] s, int li, int mi, int re) {
-		int[] temp = new int[re - li + 1];
-		for (int i = 0, j = li, k = mi; i < temp.length; i++)
-			if ((k > re) || ((j < mi) && (s[j] < s[k]))) {
-				temp[i] = s[j];
-				j++;
-			} else {
-				temp[i] = s[k];
-				k++;
-			}
-		for (int n = 0; n < temp.length; n++)
-			s[li + n] = temp[n];
-	}
-
-    public static void mergeSort(int[] s, int l, int r) {
-		if (l < r) {
-			int m = (l + r + 1) / 2;
-			mergeSort(s, l, m - 1);
-			mergeSort(s, m, r);
-			merge(s, l, m, r);
-		}
-	}
-    
     public void displayNewFrame() {
         if (counter < steps.size()) {
 
@@ -299,6 +242,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 
           //  playsound(highlights.get(counter)[0], array.length);
 
+            //delete the current panel with the current frame and add a new one displaying the next Frame
             remove(drawPanel);
             drawPanel = new GraphicsPanel(frame, highlight);
             this.add(drawPanel, BorderLayout.CENTER);
@@ -344,7 +288,6 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
 	
 
     public int[] generateArray(int arraySize) {
-
         int[] temp = new int[arraySize];
 
         // fill with numbers
@@ -361,10 +304,7 @@ public class SortFrame extends JFrame implements ActionListener, ChangeListener 
             temp[new_pos] = temp[x];
             temp[x] = n;
         }
-
         System.out.println(Arrays.toString(temp));
         return temp;
-
     }
-
 }
