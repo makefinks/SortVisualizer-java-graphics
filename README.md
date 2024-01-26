@@ -3,7 +3,7 @@ This project will be expanded to practice and to reinforce my knowledge of Swing
 
 ## Sort Visualizer
 
-**Code is subject to change. This is merely a prototype with basic function**
+**This is merely a prototype with basic function**
 
 The Application can be used to visualize different sorting algorithms by mapping numbers stored in an array to respectively sized bars.
 
@@ -15,11 +15,3 @@ Main menu:
 Visualization screen:
 <img width="1108" alt="picture 31 03" src="https://user-images.githubusercontent.com/62705365/161536240-4f8cccb0-49e4-42a2-ae93-2c086bf2aa95.png">
 
-
-# TODO
-- fix errors caused by large arrays
-- error handling (wrong inputs)
-- add more algorithms
-- improve performance
-- improve GUI
-- add correct frame timing
